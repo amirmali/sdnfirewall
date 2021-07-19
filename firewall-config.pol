@@ -1,0 +1,50 @@
+# Rule number, srcmac, dstmac, srcip, dstip, srcport, dstport, protocol, ipprotocol
+# Rule number is incremented each time - mostly for debug purposes
+# - for a rule element indicates that it isn't matched.
+# Comments are on their own line
+
+# 1. Prohibit all hosts from sending traffic to a PPTP server running on server2 (one TCP port and the GRE IP protocol):
+# PPTP uses TCP 1723; GRE is IP protocol 47; server2 IP address=10.0.0.6
+1, -, -, -, 10.0.0.6/32, -, 1723, T, -
+2, -, -, -, 10.0.0.6/32, -, -, O, 47
+
+# 2. Prohibit all hosts from sending traffic to an SSH server on the east hosts (e1-e3) (block only one TCP and UDP ports):
+# SSH uses port 22 for TCP and UDP (and SCTP); e1, e2, e3 IP addresses=10.0.0.2-4
+3, -, -, -, 10.0.0.2/32, -, 22, T, -
+4, -, -, -, 10.0.0.3/32, -, 22, T, -
+5, -, -, -, 10.0.0.4/32, -, 22, T, -
+6, -, -, -, 10.0.0.2/32, -, 22, U, -
+7, -, -, -, 10.0.0.3/32, -, 22, U, -
+8, -, -, -, 10.0.0.4/32, -, 22, U, -
+
+# 3. Protect the DNS and NTP services on both server1 and server2 from receiving traffic by all hosts (only block the UDP ports for NTP and DNS):
+# DNS uses UDP port 53; NTP uses UDP port 123; server1 IP address=10.0.0.5
+9, -, -, -, 10.0.0.5/32, -, 53, U, -
+10, -, -, -, 10.0.0.6/32, -, 53, U, -
+11, -, -, -, 10.0.0.5/32, -, 123, U, -
+12, -, -, -, 10.0.0.6/32, -, 123, U, -
+
+# 4. Disallow hosts w1 and w2 from pinging client1:
+# ping operates by sending ICMP echo request packets to the target host and waiting for an ICMP echo reply;
+# client1 IP address=10.0.0.1; w1, w2 IP addresses=10.0.0.8-9
+13, -, -, 10.0.0.8/32, 10.0.0.1/32, -, -, I, -
+14, -, -, 10.0.0.9/32, 10.0.0.1/32, -, -, I, -
+
+# 5. Disallow host e1 from sending traffic destined to TCP ports 9950-9952 on host e3:
+15, -, -, 10.0.0.2/32, 10.0.0.4/32, -, 9950, T, -
+16, -, -, 10.0.0.2/32, 10.0.0.4/32, -, 9951, T, -
+17, -, -, 10.0.0.2/32, 10.0.0.4/32, -, 9952, T, -
+
+# 6. Restrict host client1 from sending traffic to any of the east hosts (e1-e3) on both TCP and UDP protocols:
+18, -, -, 10.0.0.1/32, 10.0.0.2/32, -, -, T, -
+19, -, -, 10.0.0.1/32, 10.0.0.2/32, -, -, U, -
+20, -, -, 10.0.0.1/32, 10.0.0.3/32, -, -, T, -
+21, -, -, 10.0.0.1/32, 10.0.0.3/32, -, -, U, -
+22, -, -, 10.0.0.1/32, 10.0.0.4/32, -, -, T, -
+23, -, -, 10.0.0.1/32, 10.0.0.4/32, -, -, U, -
+
+# 7. Prohibit all hosts from sending traffic to a L2TP/IPSEC server running on server3 (2 UDP ports and the ESP IP protocol):
+# L2TP/IPSEC uses UDP ports 500 and 1701; ESP is IP protocol 50
+24, -, -, -, 10.0.0.7/32, -, 500, U, -
+25, -, -, -, 10.0.0.7/32, -, 1701, U, -
+26, -, -, -, 10.0.0.7/32, -, -, O, 50
