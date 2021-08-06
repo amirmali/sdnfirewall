@@ -1,6 +1,6 @@
 # Software-Defined Network-Based Firewall
 
-The goal of this project is to use software-defined networking (SDN) to create an externally configurable blacklist firewall using the SDN platform <a href="http://frenetic-lang.org/pyretic/">Pyretic</a> and the <a href="https://github.com/noxrepo/pox">POX OpenFlow Controller</a>.
+This project aims to use software-defined networking (SDN) to create an externally configurable blacklist firewall using the SDN platform <a href="http://frenetic-lang.org/pyretic/">Pyretic</a> and the <a href="https://github.com/noxrepo/pox">POX OpenFlow Controller</a>.
 
 The firewall rules are in the configuration file `firewall-config.pol`. The firewall policy is implemented in `firewall_policy.py`. The following rules are implemented:
 - Block PPTP, prohibiting all hosts from sending traffic to a PPTP server running on `server2`.
