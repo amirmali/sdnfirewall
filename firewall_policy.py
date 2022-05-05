@@ -7,11 +7,6 @@ from pyretic.core import packet
 
 def make_firewall_policy(config):
 
-    # You may place any user-defined functions in this space.
-    # You are not required to use this space - it is available if needed.
-
-    # feel free to remove the following "print config" line once you no longer need it
-    # it will not affect the performance of the autograder
     print config
 
     # The rules list contains all of the individual rule entries.
