@@ -16,8 +16,7 @@ policy_file = "%s/pyretic/pyretic/modules/firewall-policies.cfg" % os.environ[ '
 
 def main():
     """ Initialization of the Firewall. This pulls its rules from the file
-    defined above. You can change this file pointer, but be sure to 
-    change it back before submission! The run-firewall.sh file copies 
+    defined above. The run-firewall.sh file copies 
     over both this file and the configuration file to the correct 
     location."""
         
